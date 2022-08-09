@@ -164,8 +164,6 @@ public class LocalSavedMessageActivity extends BaseFragment implements Notificat
 
     private FrameLayout searchContainer;
     private ImageView searchCalendarButton;
-    private ImageView searchUpButton;
-    private ImageView searchDownButton;
     private SimpleTextView searchCountText;
 
     private FrameLayout roundVideoContainer;

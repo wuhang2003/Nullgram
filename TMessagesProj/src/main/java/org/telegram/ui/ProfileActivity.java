@@ -7034,14 +7034,14 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 if (chat.megagroup) {
                     canSearchMembers = true;
                     otherItem.addSubItem(search_members, R.drawable.msg_search, LocaleController.getString("SearchMembers", R.string.SearchMembers));
-                    if (!chat.creator && !chat.left && !chat.kicked) {
-                        otherItem.addSubItem(leave_group, R.drawable.msg_leave, LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu));
-                    }
                     if (chatInfo != null && chatInfo.linked_chat_id != 0) {
                         otherItem.addSubItem(view_discussion, R.drawable.msg_channel, LocaleController.getString("OpenChannel2", R.string.OpenChannel2));
                     }
                     if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
                         otherItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("GroupLocalSavedMessages", R.string.GroupLocalSavedMessages));
+                    }
+                    if (!chat.creator && !chat.left && !chat.kicked) {
+                        otherItem.addSubItem(leave_group, R.drawable.msg_leave, LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu));
                     }
                 } else {
                     if (!TextUtils.isEmpty(chat.username)) {
