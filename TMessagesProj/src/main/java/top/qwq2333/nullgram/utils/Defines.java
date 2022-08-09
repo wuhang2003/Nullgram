@@ -79,6 +79,7 @@ public class Defines {
     public static final String fastSpeedUpload = "fastSpeedUpload";
     public static final String showTabsOnForward = "showTabsOnForward";
     public static final String modifyDownloadSpeed = "modifyDownloadSpeed";
+    public static final String localSavedMessages = "localSavedMessages";
 
     // Custom API
     public static final String customAPI = "customAPI";

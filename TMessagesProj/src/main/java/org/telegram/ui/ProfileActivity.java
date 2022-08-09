@@ -205,6 +205,7 @@ import top.qwq2333.nullgram.activity.DatacenterActivity;
 import top.qwq2333.nullgram.activity.MainSettingActivity;
 import top.qwq2333.nullgram.config.ConfigManager;
 import top.qwq2333.nullgram.ui.BottomBuilder;
+import top.qwq2333.nullgram.ui.LocalSavedMessageActivity;
 import top.qwq2333.nullgram.utils.APKUtils;
 import top.qwq2333.nullgram.utils.AlertUtil;
 import top.qwq2333.nullgram.utils.Defines;
@@ -399,6 +400,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private final static int event_log = 23;
     private final static int aliasChannelName = 24;
     private final static int setLinkedUser = 25;
+    private final static int localSavedMessage = 26;
 
     private final static int edit_name = 30;
     private final static int logout = 31;
@@ -1725,6 +1727,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     setChannelAlias();
                 } else if (id == setLinkedUser) {
                     setLinkedUser();
+                } else if (id == localSavedMessage) {
+                    presentFragment(new LocalSavedMessageActivity(currentChat));
                 } else if (id == edit_channel) {
                     Bundle args = new Bundle();
                     args.putLong("chat_id", chatId);
@@ -7036,6 +7040,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     if (chatInfo != null && chatInfo.linked_chat_id != 0) {
                         otherItem.addSubItem(view_discussion, R.drawable.msg_channel, LocaleController.getString("OpenChannel2", R.string.OpenChannel2));
                     }
+                    if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
+                        otherItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("GroupLocalSavedMessages", R.string.GroupLocalSavedMessages));
+                    }
                 } else {
                     if (!TextUtils.isEmpty(chat.username)) {
                         otherItem.addSubItem(share, R.drawable.msg_share, LocaleController.getString("BotShare", R.string.BotShare));
@@ -7048,6 +7055,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     }
                     if (chatInfo != null && chatInfo.linked_chat_id != 0) {
                         otherItem.addSubItem(view_discussion, R.drawable.msg_discussion, LocaleController.getString("ViewDiscussion", R.string.ViewDiscussion));
+                    }
+                    if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
+                        otherItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("ChannelLocalSavedMessages", R.string.ChannelLocalSavedMessages));
                     }
                     if (!currentChat.creator && !currentChat.left && !currentChat.kicked) {
                         otherItem.addSubItem(leave_group, R.drawable.msg_leave, LocaleController.getString("LeaveChannelMenu", R.string.LeaveChannelMenu));

@@ -34,6 +34,7 @@ public class ExperimentSettingActivity extends BaseActivity {
     private int enchantAudioRow;
     private int linkedUserRow;
     private int overrideChannelAliasRow;
+    private int localSavedMessagesRow;
 
     private int premiumRow;
     private int hidePremiumStickerAnimRow;
@@ -89,6 +90,11 @@ public class ExperimentSettingActivity extends BaseActivity {
             ConfigManager.toggleBoolean(Defines.overrideChannelAlias);
             if (view instanceof TextCheckCell) {
                 ((TextCheckCell) view).setChecked(ConfigManager.getBooleanOrFalse(Defines.overrideChannelAlias));
+            }
+        } else if (position == localSavedMessagesRow) {
+            ConfigManager.toggleBoolean(Defines.localSavedMessages);
+            if (view instanceof TextCheckCell) {
+                ((TextCheckCell) view).setChecked(ConfigManager.getBooleanOrFalse(Defines.localSavedMessages));
             }
         } else if (position == hidePremiumStickerAnimRow) {
             ConfigManager.toggleBoolean(Defines.hidePremiumStickerAnim);
@@ -146,6 +152,7 @@ public class ExperimentSettingActivity extends BaseActivity {
         } else {
             overrideChannelAliasRow = -1;
         }
+        localSavedMessagesRow = rowCount++;
 
         if (ConfigManager.getBooleanOrFalse(Defines.showHiddenSettings)) {
             premium2Row = rowCount++;
@@ -231,6 +238,10 @@ public class ExperimentSettingActivity extends BaseActivity {
                         textCell.setTextAndCheck(LocaleController.getString("hidePremiumStickerAnim", R.string.hidePremiumStickerAnim), ConfigManager.getBooleanOrFalse(Defines.hidePremiumStickerAnim), true);
                     } else if (position == fastSpeedUploadRow) {
                         textCell.setTextAndCheck(LocaleController.getString("fastSpeedUpload", R.string.fastSpeedUpload), ConfigManager.getBooleanOrFalse(Defines.fastSpeedUpload), true);
+                    } else if (position == localSavedMessagesRow) {
+                        textCell.setTextAndValueAndCheck(LocaleController.getString("localSavedMessages", R.string.localSavedMessages),
+                            LocaleController.getString("localSavedMessagesDesc", R.string.localSavedMessagesDesc),
+                            ConfigManager.getBooleanOrFalse(Defines.localSavedMessages), true, true);
                     }
                     break;
                 }

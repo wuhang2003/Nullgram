@@ -287,6 +287,7 @@ import java.util.regex.Pattern;
 import top.qwq2333.nullgram.activity.MessageDetailActivity;
 import top.qwq2333.nullgram.config.ConfigManager;
 import top.qwq2333.nullgram.helpers.EntitiesHelper;
+import top.qwq2333.nullgram.ui.LocalSavedMessageActivity;
 import top.qwq2333.nullgram.utils.Defines;
 import top.qwq2333.nullgram.utils.Log;
 import top.qwq2333.nullgram.utils.PermissionUtils;
@@ -1301,6 +1302,7 @@ ChatActivity extends BaseFragment implements NotificationCenter.NotificationCent
     private final static int chat_menu_attach = 14;
     private final static int clear_history = 15;
     private final static int delete_chat = 16;
+    private final static int localSavedMessage = 28;
     private final static int share_contact = 17;
     private final static int mute = 18;
     private final static int report = 21;
@@ -2451,6 +2453,8 @@ ChatActivity extends BaseFragment implements NotificationCenter.NotificationCent
                             }
                         }
                     }, themeDelegate);
+                } else if (id == localSavedMessage) {
+                    presentFragment(new LocalSavedMessageActivity(currentChat));
                 } else if (id == share_contact) {
                     if (currentUser == null || getParentActivity() == null) {
                         return;
@@ -3008,13 +3012,15 @@ ChatActivity extends BaseFragment implements NotificationCenter.NotificationCent
             if (ChatObject.isChannel(currentChat) && !currentChat.creator) {
                 if (!ChatObject.isNotInChat(currentChat)) {
                     if (currentChat.megagroup) {
-                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave,
-                            LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu),
-                            themeDelegate);
+                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu), themeDelegate);
+                        if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
+                            headerItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("GroupLocalSavedMessages", R.string.GroupLocalSavedMessages));
+                        }
                     } else {
-                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave,
-                            LocaleController.getString("LeaveChannelMenu",
-                                R.string.LeaveChannelMenu), themeDelegate);
+                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveChannelMenu", R.string.LeaveChannelMenu), themeDelegate);
+                        if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
+                            headerItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("ChannelLocalSavedMessages", R.string.ChannelLocalSavedMessages));
+                        }
                     }
                 }
             } else if (!ChatObject.isChannel(currentChat)) {

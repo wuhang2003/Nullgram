@@ -194,4 +194,8 @@
     <string name="TabTitleTypeIcon">Icons</string>
     <string name="TabTitleTypeMix">Icons with titles</string>
     <string name="modifyDownloadSpeed">Modify Download Speed</string>
+    <string name="GroupLocalSavedMessages">Group Saved Messages</string>
+    <string name="ChannelLocalSavedMessages">Channel Saved Messages</string>
+    <string name="localSavedMessagesDesc">Enable Saved Messages for single chat</string>
+    <string name="localSavedMessages">Local Saved Messages</string>
 </resources>
