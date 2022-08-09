@@ -3012,15 +3012,15 @@ ChatActivity extends BaseFragment implements NotificationCenter.NotificationCent
             if (ChatObject.isChannel(currentChat) && !currentChat.creator) {
                 if (!ChatObject.isNotInChat(currentChat)) {
                     if (currentChat.megagroup) {
-                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu), themeDelegate);
                         if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
                             headerItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("GroupLocalSavedMessages", R.string.GroupLocalSavedMessages));
                         }
+                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveMegaMenu", R.string.LeaveMegaMenu), themeDelegate);
                     } else {
-                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveChannelMenu", R.string.LeaveChannelMenu), themeDelegate);
                         if (ConfigManager.getBooleanOrFalse(Defines.localSavedMessages)) {
                             headerItem.addSubItem(localSavedMessage, R.drawable.msg_saved, LocaleController.getString("ChannelLocalSavedMessages", R.string.ChannelLocalSavedMessages));
                         }
+                        headerItem.addSubItem(delete_chat, R.drawable.msg_leave, LocaleController.getString("LeaveChannelMenu", R.string.LeaveChannelMenu), themeDelegate);
                     }
                 }
             } else if (!ChatObject.isChannel(currentChat)) {
