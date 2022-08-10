@@ -499,13 +499,6 @@ public class LocalSavedMessageActivity extends BaseFragment implements Notificat
     }
 
     private void updateBottomOverlay() {
-        /*if (searchItem != null && searchItem.getVisibility() == View.VISIBLE) {
-            searchContainer.setVisibility(View.VISIBLE);
-            bottomOverlayChat.setVisibility(View.INVISIBLE);
-        } else {
-            searchContainer.setVisibility(View.INVISIBLE);
-            bottomOverlayChat.setVisibility(View.VISIBLE);
-        }*/
     }
 
     @Override
