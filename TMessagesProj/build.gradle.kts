@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.github.triplet.play") version "3.7.0"
+    kotlin("plugin.serialization") version Version.kotlin
 }
 
 configurations {
@@ -78,6 +79,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Version.kotlin}")
     implementation("org.osmdroid:osmdroid-android:6.1.13")
     implementation("com.android.billingclient:billing:5.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0-RC")
 }
 
 
