@@ -45,6 +45,7 @@ public class Defines {
     public static final String verifyLinkTip = "verifyLinkTip";
     public static final String showExactNumber = "showExactNumber";
     public static final String disableTrendingSticker = "disableTrendingSticker";
+    public static final String disablePremiumSticker = "disablePremiumSticker";
     public static final String disableInstantCamera = "disableInstantCamera";
     public static final String showHiddenSettings = "showHiddenSettings";
     public static final String confirmToSendMediaMessages = "confirmToSendMediaMessages";
@@ -80,6 +81,7 @@ public class Defines {
     public static final String showTabsOnForward = "showTabsOnForward";
     public static final String modifyDownloadSpeed = "modifyDownloadSpeed";
     public static final String localSavedMessages = "localSavedMessages";
+    public static final String disableVolumeBtnEnableVideoSound = "disableVolumeBtnEnableVideoSound";
 
     // Custom API
     public static final String customAPI = "customAPI";
@@ -135,7 +137,8 @@ public class Defines {
         1578562490, // Developer Channel
         1645976613, // Update Channel
         1714986438, // CI Channel
-        1477185964  // Discussion Group
+        1477185964, // Discussion Group
+        1068402676  // Kitsune
     };
     /**
      * 数组中元素未找到的下标，值为-1
