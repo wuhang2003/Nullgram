@@ -159,7 +159,6 @@ import java.util.Locale;
 import top.qwq2333.nullgram.config.ConfigManager;
 import top.qwq2333.nullgram.ui.syntaxhighlight.SyntaxHighlight;
 import top.qwq2333.nullgram.utils.Defines;
-import top.qwq2333.nullgram.utils.Log;
 
 public class ChatActivityEnterView extends BlurredFrameLayout implements NotificationCenter.NotificationCenterDelegate, SizeNotifierFrameLayout.SizeNotifierFrameLayoutDelegate, StickersAlert.StickersAlertDelegate {
 
@@ -2728,7 +2727,7 @@ public class ChatActivityEnterView extends BlurredFrameLayout implements Notific
                             d.getWindow().setNavigationBarColor(0);
 
                             int color = Theme.getColor(Theme.key_actionBarDefault, null, true);
-                            AndroidUtilities.setLightStatusBar(d.getWindow(), color == Color.WHITE);
+                            AndroidUtilities.setLightStatusBar(d.getWindow(), ColorUtils.calculateLuminance(color) > 0.7f);
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 int color2 = Theme.getColor(Theme.key_windowBackgroundGray, null, true);

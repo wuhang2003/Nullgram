@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.collection.ArraySet;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -985,4 +986,11 @@ public class MessageStatisticActivity extends BaseFragment implements Notificati
             child.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
         }
     }
+
+    @Override
+    public boolean isLightStatusBar() {
+        int color = Theme.getColor(Theme.key_dialogBackground, null, true);
+        return ColorUtils.calculateLuminance(color) > 0.7f;
+    }
+
 }

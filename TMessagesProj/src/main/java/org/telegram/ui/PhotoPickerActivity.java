@@ -49,6 +49,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -1984,4 +1985,11 @@ public class PhotoPickerActivity extends BaseFragment implements NotificationCen
 
         return themeDescriptions;
     }
+
+    @Override
+    public boolean isLightStatusBar() {
+        int color = Theme.getColor(Theme.key_dialogBackground, null, true);
+        return ColorUtils.calculateLuminance(color) > 0.7f;
+    }
+
 }
