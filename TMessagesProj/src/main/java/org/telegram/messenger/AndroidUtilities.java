@@ -176,6 +176,7 @@ import java.util.regex.Pattern;
 import top.qwq2333.nullgram.config.ConfigManager;
 import top.qwq2333.nullgram.utils.AppcenterUtils;
 import top.qwq2333.nullgram.utils.Defines;
+import top.qwq2333.nullgram.utils.Log;
 
 public class AndroidUtilities {
     public final static int LIGHT_STATUS_BAR_OVERLAY = 0x0f000000, DARK_STATUS_BAR_OVERLAY = 0x33000000;
@@ -4023,21 +4024,13 @@ public class AndroidUtilities {
                     flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     decorView.setSystemUiVisibility(flags);
                 }
-                if (!SharedConfig.noStatusBar && !forceTransparentStatusbar) {
-                    window.setStatusBarColor(LIGHT_STATUS_BAR_OVERLAY);
-                } else {
-                    window.setStatusBarColor(Color.TRANSPARENT);
-                }
+                window.setStatusBarColor(SharedConfig.noStatusBar || forceTransparentStatusbar ? Color.TRANSPARENT : LIGHT_STATUS_BAR_OVERLAY);
             } else {
                 if ((flags & View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) != 0) {
                     flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     decorView.setSystemUiVisibility(flags);
                 }
-                if (!SharedConfig.noStatusBar && !forceTransparentStatusbar) {
-                    window.setStatusBarColor(DARK_STATUS_BAR_OVERLAY);
-                } else {
-                    window.setStatusBarColor(Color.TRANSPARENT);
-                }
+                window.setStatusBarColor(SharedConfig.noStatusBar || forceTransparentStatusbar ? Color.TRANSPARENT : DARK_STATUS_BAR_OVERLAY);
             }
         }
     }

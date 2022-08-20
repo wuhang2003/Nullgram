@@ -135,7 +135,6 @@ import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 import top.qwq2333.nullgram.helpers.MonetHelper;
-import top.qwq2333.nullgram.ui.syntaxhighlight.SyntaxHighlight;
 
 public class Theme {
 
@@ -923,7 +922,7 @@ public class Theme {
                 return;
             }
             ArrayList<ThemeAccent> accentsToLoad = null;
-            for (int b = 0; b < 6; b++) {
+            for (int b = 0; b < 5; b++) {
                 String key;
                 switch (b) {
                     case 0:
@@ -939,11 +938,8 @@ public class Theme {
                         key = "Day";
                         break;
                     case 4:
-                        key = "Night";
-                        break;
-                    case 5:
                     default:
-                        key = "AMOLED";
+                        key = "Night";
                         break;
                 }
                 ThemeInfo info = themesDict.get(key);
@@ -1608,6 +1604,7 @@ public class Theme {
         }
 
         private float[] tempHSV = new float[3];
+
         private int setHue(int color, int hueFromColor) {
             Color.colorToHSV(hueFromColor, tempHSV);
             float hue = tempHSV[0];
@@ -1617,6 +1614,7 @@ public class Theme {
             }
             return Color.HSVToColor(Color.alpha(color), tempHSV);
         }
+
         private int bubbleSelectedOverlay(int bubble, int accentColor) {
             Color.colorToHSV(accentColor, tempHSV);
             float h = tempHSV[0];
@@ -1628,6 +1626,7 @@ public class Theme {
             tempHSV[2] = Math.max(0, Math.min(1, tempHSV[2] - .05f));
             return Color.HSVToColor(30, tempHSV);
         }
+
         private int textSelectionBackground(boolean isOut, int bubble, int accentColor) {
             Color.colorToHSV(accentColor, tempHSV);
             float h = tempHSV[0];
@@ -1639,6 +1638,7 @@ public class Theme {
             tempHSV[2] = Math.max(0, Math.min(1, tempHSV[2] - .15f));
             return Color.HSVToColor(80, tempHSV);
         }
+
         private int textSelectionHandle(int bubble, int accentColor) {
             Color.colorToHSV(accentColor, tempHSV);
             float h = tempHSV[0];
@@ -1650,13 +1650,15 @@ public class Theme {
             tempHSV[2] = Math.max(0, Math.min(1, tempHSV[2] - (tempHSV[2] > .7f ? .25f : .125f)));
             return Theme.blendOver(bubble, Color.HSVToColor(255, tempHSV));
         }
+
         private int linkSelectionBackground(int linkColor, int bgColor, boolean isDarkTheme) {
             Color.colorToHSV(ColorUtils.blendARGB(linkColor, bgColor, .25f), tempHSV);
             tempHSV[1] = Math.max(0, Math.min(1, tempHSV[1] - .1f));
             tempHSV[2] = Math.max(0, Math.min(1, tempHSV[2] + (isDarkTheme ? .1f : 0)));
             return Color.HSVToColor(0x33, tempHSV);
         }
-        private int averageColor(HashMap<String, Integer> colors, String ...keys) {
+
+        private int averageColor(HashMap<String, Integer> colors, String... keys) {
             int r = 0, g = 0, b = 0, c = 0;
             for (int i = 0; i < keys.length; ++i) {
                 if (!colors.containsKey(keys[i])) {
@@ -1668,7 +1670,8 @@ public class Theme {
                     g += Color.green(color);
                     b += Color.blue(color);
                     c++;
-                } catch (Exception ignore) {}
+                } catch (Exception ignore) {
+                }
             }
             if (c == 0) {
                 return 0;
@@ -1845,7 +1848,7 @@ public class Theme {
                 fileName = "";
             }
             if (!TextUtils.isEmpty(info.originalFileName)) {
-                if (!info.originalFileName.equals(info.fileName)){
+                if (!info.originalFileName.equals(info.fileName)) {
                     try {
                         File fromFile = new File(ApplicationLoader.getFilesDirFixed(), info.originalFileName);
                         File toFile = new File(ApplicationLoader.getFilesDirFixed(), originalFileName = parentTheme.generateWallpaperName(parentAccent, true));
@@ -1980,7 +1983,7 @@ public class Theme {
         public OverrideWallpaperInfo overrideWallpaper;
         private int isDark = UNKNOWN;
 
-        private final static int DARK= 1;
+        private final static int DARK = 1;
         private final static int LIGHT = 0;
         private final static int UNKNOWN = -1;
 
@@ -2066,7 +2069,7 @@ public class Theme {
 
         private void loadOverrideWallpaper(SharedPreferences sharedPreferences, ThemeAccent accent, String key) {
             try {
-                String json = sharedPreferences.getString(key,  null);
+                String json = sharedPreferences.getString(key, null);
                 if (TextUtils.isEmpty(json)) {
                     return;
                 }
@@ -2711,7 +2714,8 @@ public class Theme {
             return getColor(key);
         }
 
-        default void setAnimatedColor(String key, int color) {}
+        default void setAnimatedColor(String key, int color) {
+        }
 
         default Drawable getDrawable(String drawableKey) {
             return null;
@@ -3045,9 +3049,6 @@ public class Theme {
     public static Drawable[] chat_pollCrossDrawable = new Drawable[2];
     public static Drawable[] chat_pollHintDrawable = new Drawable[2];
     public static Drawable[] chat_psaHelpDrawable = new Drawable[2];
-    public static Drawable chat_arrowDrawable;
-    public static Drawable chat_editDrawable;
-    public static Drawable chat_blockDrawable;
 
     public static Drawable chat_msgCallUpGreenDrawable;
     public static Drawable chat_msgCallDownRedDrawable;
@@ -3810,38 +3811,6 @@ public class Theme {
     public static final String key_sheet_scrollUp = "key_sheet_scrollUp";
     public static final String key_sheet_other = "key_sheet_other";
 
-    public static final String key_codehighlight_annotation = "codehighlight_annotation";
-    public static final String key_codehighlight_atrule = "codehighlight_atrule";
-    public static final String key_codehighlight_attr_name = "codehighlight_attr_name";
-    public static final String key_codehighlight_attr_value = "codehighlight_attr_value";
-    public static final String key_codehighlight_boolean = "codehighlight_boolean";
-    public static final String key_codehighlight_builtin = "codehighlight_builtin";
-    public static final String key_codehighlight_cdata = "codehighlight_cdata";
-    public static final String key_codehighlight_char = "codehighlight_char";
-    public static final String key_codehighlight_class_name = "codehighlight_class_name";
-    public static final String key_codehighlight_comment = "codehighlight_comment";
-    public static final String key_codehighlight_constant = "codehighlight_constant";
-    public static final String key_codehighlight_deleted = "codehighlight_deleted";
-    public static final String key_codehighlight_delimiter = "codehighlight_delimiter";
-    public static final String key_codehighlight_doctype = "codehighlight_doctype";
-    public static final String key_codehighlight_entity = "codehighlight_entity";
-    public static final String key_codehighlight_function = "codehighlight_function";
-    public static final String key_codehighlight_important = "codehighlight_important";
-    public static final String key_codehighlight_inserted = "codehighlight_inserted";
-    public static final String key_codehighlight_keyword = "codehighlight_keyword";
-    public static final String key_codehighlight_number = "codehighlight_number";
-    public static final String key_codehighlight_operator = "codehighlight_operator";
-    public static final String key_codehighlight_prolog = "codehighlight_prolog";
-    public static final String key_codehighlight_property = "codehighlight_property";
-    public static final String key_codehighlight_punctuation = "codehighlight_punctuation";
-    public static final String key_codehighlight_regex = "codehighlight_regex";
-    public static final String key_codehighlight_selector = "codehighlight_selector";
-    public static final String key_codehighlight_string = "codehighlight_string";
-    public static final String key_codehighlight_symbol = "codehighlight_symbol";
-    public static final String key_codehighlight_tag = "codehighlight_tag";
-    public static final String key_codehighlight_url = "codehighlight_url";
-    public static final String key_codehighlight_variable = "codehighlight_variable";
-
     public static final String key_wallet_blackBackground = "wallet_blackBackground";
     public static final String key_wallet_graySettingsBackground = "wallet_graySettingsBackground";
     public static final String key_wallet_grayBackground = "wallet_grayBackground";
@@ -3990,6 +3959,40 @@ public class Theme {
     public static final String key_paint_chatBotButton = "paintChatBotButton";
     public static final String key_paint_chatComposeBackground = "paintChatComposeBackground";
     public static final String key_paint_chatTimeBackground = "paintChatTimeBackground";
+
+    // Code Highlight
+    public static final String key_codehighlight_annotation = "codehighlight_annotation";
+    public static final String key_codehighlight_atrule = "codehighlight_atrule";
+    public static final String key_codehighlight_attr_name = "codehighlight_attr_name";
+    public static final String key_codehighlight_attr_value = "codehighlight_attr_value";
+    public static final String key_codehighlight_boolean = "codehighlight_boolean";
+    public static final String key_codehighlight_builtin = "codehighlight_builtin";
+    public static final String key_codehighlight_cdata = "codehighlight_cdata";
+    public static final String key_codehighlight_char = "codehighlight_char";
+    public static final String key_codehighlight_class_name = "codehighlight_class_name";
+    public static final String key_codehighlight_comment = "codehighlight_comment";
+    public static final String key_codehighlight_constant = "codehighlight_constant";
+    public static final String key_codehighlight_deleted = "codehighlight_deleted";
+    public static final String key_codehighlight_delimiter = "codehighlight_delimiter";
+    public static final String key_codehighlight_doctype = "codehighlight_doctype";
+    public static final String key_codehighlight_entity = "codehighlight_entity";
+    public static final String key_codehighlight_function = "codehighlight_function";
+    public static final String key_codehighlight_important = "codehighlight_important";
+    public static final String key_codehighlight_inserted = "codehighlight_inserted";
+    public static final String key_codehighlight_keyword = "codehighlight_keyword";
+    public static final String key_codehighlight_number = "codehighlight_number";
+    public static final String key_codehighlight_operator = "codehighlight_operator";
+    public static final String key_codehighlight_prolog = "codehighlight_prolog";
+    public static final String key_codehighlight_property = "codehighlight_property";
+    public static final String key_codehighlight_punctuation = "codehighlight_punctuation";
+    public static final String key_codehighlight_regex = "codehighlight_regex";
+    public static final String key_codehighlight_selector = "codehighlight_selector";
+    public static final String key_codehighlight_string = "codehighlight_string";
+    public static final String key_codehighlight_symbol = "codehighlight_symbol";
+    public static final String key_codehighlight_tag = "codehighlight_tag";
+    public static final String key_codehighlight_url = "codehighlight_url";
+    public static final String key_codehighlight_variable = "codehighlight_variable";
+
     private static final HashMap<String, Paint> defaultChatPaints = new HashMap<>();
     private static final HashMap<String, String> defaultChatPaintColors = new HashMap<>();
 
@@ -4747,7 +4750,7 @@ public class Theme {
         defaultColors.put(key_statisticChartNightIconColor, 0xff8E8E93);
         defaultColors.put(key_statisticChartChevronColor, 0xffD2D5D7);
         defaultColors.put(key_statisticChartHighlightColor, 0x20ececec);
-        defaultColors.put(key_statisticChartPopupBackground,0xffffffff);
+        defaultColors.put(key_statisticChartPopupBackground, 0xffffffff);
 
         defaultColors.put(key_statisticChartLine_blue, 0xff327FE5);
         defaultColors.put(key_statisticChartLine_green, 0xff61C752);
@@ -5343,6 +5346,7 @@ public class Theme {
             themes.add(themeInfo);
             themesDict.put("Monet AMOLED", themeInfo);
         }
+
 
         String themesString = themeConfig.getString("themes2", null);
 
@@ -6233,8 +6237,8 @@ public class Theme {
                 maskDrawable = new ColorDrawable(0xffffffff);
             }
             ColorStateList colorStateList = new ColorStateList(
-                new int[][]{ StateSet.WILD_CARD },
-                new int[]{ color }
+                new int[][]{StateSet.WILD_CARD},
+                new int[]{color}
             );
             RippleDrawable rippleDrawable = new RippleDrawable(colorStateList, null, maskDrawable);
             if (Build.VERSION.SDK_INT >= 23) {
@@ -6296,32 +6300,32 @@ public class Theme {
     /**
      * AdaptiveRipple implements methods for creating ripple drawables
      * Ripple color is based on background color, shifting saturation and value
-     *
+     * <p>
      * There are four public static methods:
-     *  circle(String|int backgroundColor?, float radius?)
-     *      - creates ripple drawable for circle buttons, draws only ripples
-     *        radius (by default) can be RADIUS_TO_BOUNDS (-1): will be calculated to touch bounds edges
-     *        radius can be RADIUS_OUT_BOUNDS (-2): will be calculated to touch bounds corners (fill entire bounds)
-     *        otherwise radius is described in dp
-     *  filledCircle(String|Drawable|int background?, String|int backgroundColor?, float radius?)
-     *      - creates ripple drawable for circle buttons, draws ripples and background
-     *        (!) it's not recommended to use only drawable background, as it would be impossible to get background color
-     *          (there would be an attempt to cast drawable to ColorDrawable to retrieve a color)
-     *  rect(String|int backgroundColor?, ...float radii?)
-     *      - creates ripple drawable for rectangular buttons, draws only ripples
-     *        radii array is allowed to have 0, 1, 2, 3, 4, 8 elements:
-     *        0 - no rounding
-     *        1 - all roundings
-     *        2 - top, bottom roundings
-     *        3 - top-left, top-right, bottom roundings
-     *        4 - top-left, top-right, bottom-right, bottom-left roundings
-     *        8 - top-left-x, top-left-y, top-right-x, top-right-y,
-     *            bottom-right-x, bottom-right-y, bottom-left-x, bottom-left-y roundings
-     *        in case it has more, would be downgraded to nearest (ex.: 5 -> 4, 10 -> 8)
-     *   filledRect(String|Drawable|int background?, String|int backgroundColor?, ...float radii?)
-     *      - creates ripple drawable for rectangular buttons, draws ripples and background
-     *
-     *  by default, backgroundColor is getColor(Theme.key_windowBackgroundWhite)
+     * circle(String|int backgroundColor?, float radius?)
+     * - creates ripple drawable for circle buttons, draws only ripples
+     * radius (by default) can be RADIUS_TO_BOUNDS (-1): will be calculated to touch bounds edges
+     * radius can be RADIUS_OUT_BOUNDS (-2): will be calculated to touch bounds corners (fill entire bounds)
+     * otherwise radius is described in dp
+     * filledCircle(String|Drawable|int background?, String|int backgroundColor?, float radius?)
+     * - creates ripple drawable for circle buttons, draws ripples and background
+     * (!) it's not recommended to use only drawable background, as it would be impossible to get background color
+     * (there would be an attempt to cast drawable to ColorDrawable to retrieve a color)
+     * rect(String|int backgroundColor?, ...float radii?)
+     * - creates ripple drawable for rectangular buttons, draws only ripples
+     * radii array is allowed to have 0, 1, 2, 3, 4, 8 elements:
+     * 0 - no rounding
+     * 1 - all roundings
+     * 2 - top, bottom roundings
+     * 3 - top-left, top-right, bottom roundings
+     * 4 - top-left, top-right, bottom-right, bottom-left roundings
+     * 8 - top-left-x, top-left-y, top-right-x, top-right-y,
+     * bottom-right-x, bottom-right-y, bottom-left-x, bottom-left-y roundings
+     * in case it has more, would be downgraded to nearest (ex.: 5 -> 4, 10 -> 8)
+     * filledRect(String|Drawable|int background?, String|int backgroundColor?, ...float radii?)
+     * - creates ripple drawable for rectangular buttons, draws ripples and background
+     * <p>
+     * by default, backgroundColor is getColor(Theme.key_windowBackgroundWhite)
      */
     public static class AdaptiveRipple {
 
@@ -6333,15 +6337,19 @@ public class Theme {
         public static Drawable circle() {
             return circle(Theme.getColor(defaultBackgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable circle(String backgroundColorKey) {
             return circle(Theme.getColor(backgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable circle(String backgroundColorKey, float radius) {
             return circle(Theme.getColor(backgroundColorKey), radius);
         }
+
         public static Drawable circle(int backgroundColor) {
             return circle(backgroundColor, RADIUS_TO_BOUNDS);
         }
+
         public static Drawable circle(int backgroundColor, float radius) {
             return createCircle(calcRippleColor(backgroundColor), radius);
         }
@@ -6349,27 +6357,35 @@ public class Theme {
         public static Drawable filledCircle() {
             return filledCircle(null, Theme.getColor(defaultBackgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable filledCircle(Drawable background) {
             return filledCircle(background, Theme.getColor(defaultBackgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable filledCircle(String backgroundColorKey) {
             return filledCircle(null, Theme.getColor(backgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable filledCircle(Drawable background, String backgroundColorKey) {
             return filledCircle(background, Theme.getColor(backgroundColorKey), RADIUS_TO_BOUNDS);
         }
+
         public static Drawable filledCircle(String backgroundColorKey, float radius) {
             return filledCircle(null, Theme.getColor(backgroundColorKey), radius);
         }
+
         public static Drawable filledCircle(Drawable background, String backgroundColorKey, float radius) {
             return filledCircle(background, Theme.getColor(backgroundColorKey), radius);
         }
+
         public static Drawable filledCircle(int backgroundColor) {
             return filledCircle(null, backgroundColor, RADIUS_TO_BOUNDS);
         }
+
         public static Drawable filledCircle(int backgroundColor, float radius) {
             return filledCircle(null, backgroundColor, radius);
         }
+
         public static Drawable filledCircle(Drawable background, int backgroundColor, float radius) {
             return createCircle(background, calcRippleColor(backgroundColor), radius);
         }
@@ -6377,52 +6393,65 @@ public class Theme {
         public static Drawable rect() {
             return rect(Theme.getColor(defaultBackgroundColorKey));
         }
+
         public static Drawable rect(String backgroundColorKey) {
             return rect(Theme.getColor(backgroundColorKey));
         }
-        public static Drawable rect(String backgroundColorKey, float ...radii) {
+
+        public static Drawable rect(String backgroundColorKey, float... radii) {
             return rect(Theme.getColor(backgroundColorKey), radii);
         }
+
         public static Drawable rect(int backgroundColor) {
             return rect(backgroundColor, 0);
         }
-        public static Drawable rect(int backgroundColor, float ...radii) {
+
+        public static Drawable rect(int backgroundColor, float... radii) {
             return createRect(0, calcRippleColor(backgroundColor), radii);
         }
 
         public static Drawable filledRect() {
             return filledRect(Theme.getColor(defaultBackgroundColorKey), 0);
         }
+
         public static Drawable filledRect(Drawable background) {
             int backgroundColor = background instanceof ColorDrawable ? ((ColorDrawable) background).getColor() : Theme.getColor(defaultBackgroundColorKey);
             return filledRect(background, backgroundColor, 0);
         }
+
         public static Drawable filledRect(String backgroundColorKey) {
             return filledRect(Theme.getColor(backgroundColorKey));
         }
+
         public static Drawable filledRect(Drawable background, String backgroundColorKey) {
             return filledRect(background, Theme.getColor(backgroundColorKey));
         }
-        public static Drawable filledRect(String backgroundColorKey, float ...radii) {
+
+        public static Drawable filledRect(String backgroundColorKey, float... radii) {
             return filledRect(Theme.getColor(backgroundColorKey), radii);
         }
-        public static Drawable filledRect(Drawable background, String backgroundColorKey, float ...radii) {
+
+        public static Drawable filledRect(Drawable background, String backgroundColorKey, float... radii) {
             return filledRect(background, Theme.getColor(backgroundColorKey), radii);
         }
+
         public static Drawable filledRect(int backgroundColor) {
             return createRect(backgroundColor, calcRippleColor(backgroundColor));
         }
-        public static Drawable filledRect(int backgroundColor, float ...radii) {
+
+        public static Drawable filledRect(int backgroundColor, float... radii) {
             return createRect(backgroundColor, calcRippleColor(backgroundColor), radii);
         }
-        public static Drawable filledRect(Drawable background, int backgroundColor, float ...radii) {
+
+        public static Drawable filledRect(Drawable background, int backgroundColor, float... radii) {
             return createRect(background, calcRippleColor(backgroundColor), radii);
         }
 
-        public static Drawable createRect(int rippleColor, float ...radii) {
+        public static Drawable createRect(int rippleColor, float... radii) {
             return createRect(0, rippleColor, radii);
         }
-        public static Drawable createRect(int backgroundColor, int rippleColor, float ...radii) {
+
+        public static Drawable createRect(int backgroundColor, int rippleColor, float... radii) {
             Drawable background = null;
             if (backgroundColor != 0) {
                 if (hasNonzeroRadii(radii)) {
@@ -6438,7 +6467,8 @@ public class Theme {
                 radii
             );
         }
-        private static Drawable createRect(Drawable background, int rippleColor, float ...radii) {
+
+        private static Drawable createRect(Drawable background, int rippleColor, float... radii) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Drawable maskDrawable = null;
                 if (hasNonzeroRadii(radii)) {
@@ -6450,8 +6480,8 @@ public class Theme {
                 }
                 return new RippleDrawable(
                     new ColorStateList(
-                        new int[][]{ StateSet.WILD_CARD },
-                        new int[]{ rippleColor }
+                        new int[][]{StateSet.WILD_CARD},
+                        new int[]{rippleColor}
                     ),
                     background,
                     maskDrawable
@@ -6466,7 +6496,7 @@ public class Theme {
                     ripple = new ShapeDrawable(new RectShape());
                     ((ShapeDrawable) ripple).getPaint().setColor(rippleColor);
                 }
-                Drawable pressed = new LayerDrawable(new Drawable[] { background, ripple });
+                Drawable pressed = new LayerDrawable(new Drawable[]{background, ripple});
                 stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressed);
                 stateListDrawable.addState(new int[]{android.R.attr.state_selected}, pressed);
                 stateListDrawable.addState(StateSet.WILD_CARD, background);
@@ -6477,9 +6507,11 @@ public class Theme {
         private static Drawable createCircle(int rippleColor) {
             return createCircle(0, rippleColor, RADIUS_TO_BOUNDS);
         }
+
         private static Drawable createCircle(int rippleColor, float radius) {
             return createCircle(0, rippleColor, radius);
         }
+
         private static Drawable createCircle(int backgroundColor, int rippleColor, float radius) {
             return createCircle(
                 backgroundColor == 0 ? null : new CircleDrawable(radius, backgroundColor),
@@ -6487,12 +6519,13 @@ public class Theme {
                 radius
             );
         }
+
         private static Drawable createCircle(Drawable background, int rippleColor, float radius) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 return new RippleDrawable(
                     new ColorStateList(
-                        new int[][]{ StateSet.WILD_CARD },
-                        new int[]{ rippleColor }
+                        new int[][]{StateSet.WILD_CARD},
+                        new int[]{rippleColor}
                     ),
                     background,
                     new CircleDrawable(radius)
@@ -6500,7 +6533,7 @@ public class Theme {
             } else {
                 StateListDrawable stateListDrawable = new StateListDrawable();
                 Drawable ripple = new CircleDrawable(radius, rippleColor);
-                Drawable pressed = new LayerDrawable(new Drawable[] { background, ripple });
+                Drawable pressed = new LayerDrawable(new Drawable[]{background, ripple});
                 stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, pressed);
                 stateListDrawable.addState(new int[]{android.R.attr.state_selected}, pressed);
                 stateListDrawable.addState(StateSet.WILD_CARD, background);
@@ -6544,31 +6577,37 @@ public class Theme {
             }
 
             @Override
-            public void setAlpha(int i) {}
+            public void setAlpha(int i) {
+            }
+
             @Override
-            public void setColorFilter(@Nullable ColorFilter colorFilter) {}
-            @Deprecated @Override
+            public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            }
+
+            @Deprecated
+            @Override
             public int getOpacity() {
                 return PixelFormat.TRANSPARENT;
             }
         }
 
-        private static float[] calcRadii(float ...radii) {
+        private static float[] calcRadii(float... radii) {
             if (radii.length == 0) {
-                return new float[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+                return new float[]{0, 0, 0, 0, 0, 0, 0, 0};
             } else if (radii.length == 1) {
-                return new float[] { dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]) };
+                return new float[]{dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0])};
             } else if (radii.length == 2) {
-                return new float[] { dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[1]), dp(radii[1]) };
+                return new float[]{dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[1]), dp(radii[1])};
             } else if (radii.length == 3) {
-                return new float[] { dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[2]), dp(radii[2]), dp(radii[2]), dp(radii[2]) };
+                return new float[]{dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[2]), dp(radii[2]), dp(radii[2]), dp(radii[2])};
             } else if (radii.length < 8) {
-                return new float[] { dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[2]), dp(radii[2]), dp(radii[3]), dp(radii[3]) };
+                return new float[]{dp(radii[0]), dp(radii[0]), dp(radii[1]), dp(radii[1]), dp(radii[2]), dp(radii[2]), dp(radii[3]), dp(radii[3])};
             } else {
-                return new float[] { dp(radii[0]), dp(radii[1]), dp(radii[2]), dp(radii[3]), dp(radii[4]), dp(radii[5]), dp(radii[6]), dp(radii[7]) };
+                return new float[]{dp(radii[0]), dp(radii[1]), dp(radii[2]), dp(radii[3]), dp(radii[4]), dp(radii[5]), dp(radii[6]), dp(radii[7])};
             }
         }
-        private static boolean hasNonzeroRadii(float ...radii) {
+
+        private static boolean hasNonzeroRadii(float... radii) {
             for (int i = 0; i < Math.min(8, radii.length); ++i) {
                 if (radii[i] > 0) {
                     return true;
@@ -6578,6 +6617,7 @@ public class Theme {
         }
 
         private static float[] tempHSV;
+
         public static int calcRippleColor(int backgroundColor) {
             if (tempHSV == null) {
                 tempHSV = new float[3];
@@ -6604,6 +6644,7 @@ public class Theme {
             radii[0] = radii[1] = radii[2] = radii[3] = AndroidUtilities.dp(top);
             radii[4] = radii[5] = radii[6] = radii[7] = AndroidUtilities.dp(bottom);
         }
+
         public RippleRadMaskDrawable(float topLeft, float topRight, float bottomRight, float bottomLeft) {
             radii[0] = radii[1] = AndroidUtilities.dp(topLeft);
             radii[2] = radii[3] = AndroidUtilities.dp(topRight);
@@ -6617,6 +6658,7 @@ public class Theme {
             invalidatePath = true;
             invalidateSelf();
         }
+
         public void setRadius(float topLeft, float topRight, float bottomRight, float bottomLeft) {
             radii[0] = radii[1] = AndroidUtilities.dp(topLeft);
             radii[2] = radii[3] = AndroidUtilities.dp(topRight);
@@ -6692,6 +6734,7 @@ public class Theme {
             return stateListDrawable;
         }
     }
+
     public static Drawable createRadSelectorDrawable(int color, int topLeftRad, int topRightRad, int bottomRightRad, int bottomLeftRad) {
         if (Build.VERSION.SDK_INT >= 21) {
             maskPaint.setColor(0xffffffff);
@@ -7248,7 +7291,6 @@ public class Theme {
         applyDialogsTheme();
         applyProfileTheme();
         applyChatTheme(false, bg);
-        SyntaxHighlight.updateColors();
         boolean checkNavigationBarColor = !hasPreviousTheme;
         AndroidUtilities.runOnUIThread(() -> NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.didSetNewTheme, false, checkNavigationBarColor));
     }
@@ -7320,6 +7362,7 @@ public class Theme {
     }
 
     private static float[] tmpHSV5;
+
     public static int changeColorAccent(float[] baseHsv, float[] accentHsv, int color, boolean isDarkTheme) {
         if (tmpHSV5 == null) {
             tmpHSV5 = new float[3];
@@ -9061,7 +9104,7 @@ public class Theme {
                 chat_msgBotButtonPaint.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
             }
 
-            final float[] emojiSizePercents = new float[] {.7f, .52f, .37f, .28f, .25f, .19f};
+            final float[] emojiSizePercents = new float[]{.7f, .52f, .37f, .28f, .25f, .19f};
             for (int i = 0; i < chat_msgTextPaintEmoji.length; ++i) {
                 chat_msgTextPaintEmoji[i] = new TextPaint(Paint.ANTI_ALIAS_FLAG);
                 chat_msgTextPaintEmoji[i].setTextSize(AndroidUtilities.dp(emojiSizePercents[i] * 120f));
@@ -9683,6 +9726,7 @@ public class Theme {
     }
 
     private static int[] viewPos = new int[2];
+
     public static void applyServiceShaderMatrixForView(View view, View background) {
         if (view == null || background == null) {
             return;
@@ -9885,7 +9929,8 @@ public class Theme {
     private static ColorFilter currentShareColorFilter;
     private static int currentShareColorFilterColor;
     private static ColorFilter currentShareSelectedColorFilter;
-    private static  int currentShareSelectedColorFilterColor;
+    private static int currentShareSelectedColorFilterColor;
+
     public static ColorFilter getShareColorFilter(int color, boolean selected) {
         if (selected) {
             if (currentShareSelectedColorFilter == null || currentShareSelectedColorFilterColor != color) {
@@ -10003,6 +10048,7 @@ public class Theme {
         }
         return getColor(key);
     }
+
     public static int getColor(String key) {
         return getColor(key, null, false);
     }
@@ -10950,6 +10996,15 @@ public class Theme {
         return false;
     }
 
-    public static Paint DEBUG_RED = new Paint(); static { DEBUG_RED.setColor(0xffff0000); }
-    public static Paint DEBUG_BLUE = new Paint(); static { DEBUG_BLUE.setColor(0xff0000ff); }
+    public static Paint DEBUG_RED = new Paint();
+
+    static {
+        DEBUG_RED.setColor(0xffff0000);
+    }
+
+    public static Paint DEBUG_BLUE = new Paint();
+
+    static {
+        DEBUG_BLUE.setColor(0xff0000ff);
+    }
 }
