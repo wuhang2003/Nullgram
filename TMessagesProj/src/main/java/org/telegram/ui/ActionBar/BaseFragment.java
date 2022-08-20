@@ -56,6 +56,7 @@ import java.util.ArrayList;
 
 import top.qwq2333.nullgram.config.ConfigManager;
 import top.qwq2333.nullgram.utils.Defines;
+import top.qwq2333.nullgram.utils.Log;
 import top.qwq2333.nullgram.utils.MessageUtils;
 import top.qwq2333.nullgram.utils.VibrationUtils;
 
@@ -787,16 +788,19 @@ public abstract class BaseFragment {
     }
 
     public boolean isLightStatusBar() {
-        if (hasForceLightStatusBar() && !Theme.getActiveTheme().isDark()) {
+        if (hasForceLightStatusBar() && !Theme.getCurrentTheme().isDark()) {
+            Log.i("hasForceLightStatusBar() && !Theme.getCurrentTheme().isDark()");
             return true;
         }
         Theme.ResourcesProvider resourcesProvider = getResourceProvider();
         int color;
         String key = Theme.key_actionBarDefault;
         if (actionBar != null && actionBar.isActionModeShowed()) {
+            Log.i("actionBar != null && actionBar.isActionModeShowed()");
             key = Theme.key_actionBarActionModeDefault;
         }
         if (resourcesProvider != null) {
+            Log.i("resourcesProvider != null");
             color = resourcesProvider.getColorOrDefault(key);
         } else {
             color = Theme.getColor(key, null, true);
